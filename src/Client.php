@@ -7,14 +7,14 @@ use Needletail\Http\Query;
 class Client
 {
     /**
-     * An API key asscociated with all the read functionalities.
+     * An API key associated with all the read functionalities.
      *
      * @var string
      */
     private $read_key;
 
     /**
-     * An API key asscociated with all the write functionalities.
+     * An API key associated with all the write functionalities.
      *
      * @var string
      */
@@ -35,24 +35,18 @@ class Client
     }
 
     /**
-     * Intialize a new bucket. If the given bucket does not exist, the bucket will be automatically created.
+     * Initialize a new bucket. If the given bucket does not exist, the bucket will be automatically created.
      *
      * @param  string $bucket
      * @return Bucket
      */
     public function initBucket(string $bucket)
     {
-        $bucket = new Bucket(
+        return new Bucket(
             $bucket,
             $this->read_key,
             $this->write_key
         );
-
-        if (!$bucket->exists()) {
-            $bucket->createBucket();
-        }
-
-        return $bucket;
     }
 
     /**

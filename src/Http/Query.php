@@ -42,7 +42,7 @@ class Query
      */
     public static function raw(string $path, string $method, ?string $api_key, array $data = [], array $headers = [])
     {
-        $client = new Client(['base_uri' => 'http://api.staging.needletail.io/2.0/']);
+        $client = new Client(['base_uri' => 'http://needletail-api.test/2.0/']);
 
         $predefined_headers = [
             'x-needletail-api-key' => $api_key
