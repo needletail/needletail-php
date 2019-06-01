@@ -17,6 +17,7 @@ class CreateBucketTest extends TestCase
         );
 
         $bucket = $client->initBucket('test-bucket-that-does-not-exist');
+        $bucket->createBucket();
 
         $this->assertInstanceOf(Bucket::class, $bucket);
 

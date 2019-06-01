@@ -175,7 +175,7 @@ class Bucket
             ]
         ];
 
-        // If 'took' doesn't exist then the bucket doesn't exist.
+        // If 'time' doesn't exist then the bucket doesn't exist.
         return $this->search($parameters)->time !== null;
     }
 

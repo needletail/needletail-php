@@ -22,7 +22,8 @@ class AggregationTest extends TestCase
             $this->write_key
         );
 
-        $this->bucket = $client->initBucket('vacancies');
+        $this->bucket = $client->initBucket('testing-bucket');
+        $this->bucket->createBucket();
     }
 
     /** @test */
@@ -49,5 +50,10 @@ class AggregationTest extends TestCase
         ]);
 
         $this->assertTrue($response->count() === 0);
+    }
+
+    protected function tearDown()
+    {
+        $this->bucket->deleteBucket();
     }
 }

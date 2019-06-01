@@ -23,7 +23,5 @@ class TestCase extends BaseTestCase
     protected function setUp()
     {
         parent::setUp();
-
-        require_once(__DIR__ . '/../src/bootstrap.php');
     }
 }

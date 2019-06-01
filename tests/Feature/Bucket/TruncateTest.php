@@ -23,6 +23,8 @@ class TruncateTest extends TestCase
         );
 
         $this->bucket = $client->initBucket('test-bucket-that-does-not-exist');
+
+        $this->bucket->createBucket();
     }
 
     protected function tearDown()

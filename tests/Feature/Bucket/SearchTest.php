@@ -27,6 +27,7 @@ class SearchTest extends TestCase
         );
 
         $this->bucket = $this->client->initBucket('vacancies');
+        $this->bucket->createBucket();
     }
 
     /** @test */
