@@ -11,8 +11,10 @@
     "require": {
         "php": "^7.1.3",
         "guzzlehttp/guzzle": "^6.3.3",
-        "ext-json": "*",
-        "tightenco/collect": "^5.7"
+        "ext-json": "*"
+    },
+    "suggest": {
+        "tightenco/collect": "Allows you to call the toCollection method on the Needletail result"
     },
     "autoload": {
         "psr-4": {

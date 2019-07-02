@@ -6,10 +6,8 @@ use Countable;
 use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
-use Tightenco\Collect\Support\Collection;
-use Tightenco\Collect\Contracts\Support\Arrayable;
 
-class NeedletailResult implements Arrayable, ArrayAccess, Countable, IteratorAggregate
+class NeedletailResult implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * The items contained in the collection.
@@ -42,11 +40,15 @@ class NeedletailResult implements Arrayable, ArrayAccess, Countable, IteratorAgg
     /**
      * Get the collection of items as Laravel collection.
      *
-     * @return Collection
+     * @return \Tightenco\Collect\Support\Collection
+     * @throws \Exception
      */
     public function toCollection()
     {
-        return new Collection($this->items);
+        if (!class_exists('\Tightenco\Collect\Support\Collection'))
+            throw new \Exception('Cannot use the toCollection method unless you include the tightenco/collect package');
+
+        return new \Tightenco\Collect\Support\Collection($this->items);
     }
 
     /**
