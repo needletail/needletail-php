@@ -241,7 +241,7 @@ class Bucket
     }
 
     /**
-     * Retrieve the bucket' name.
+     * Retrieve the bucket's name.
      *
      * @return string
      */
