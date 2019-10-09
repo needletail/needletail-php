@@ -163,6 +163,67 @@ class Bucket
     }
 
     /**
+     * Retrieve all the bucket's synonyms
+     *
+     * @return NeedletailResult
+     */
+    public function synonyms()
+    {
+        return Query::execute('synonyms', $this, $this->read_key, 'get');
+    }
+
+    /**
+     * Create a synonym
+     *
+     * @param  array|string $synonyms
+     * @param  string|null $original
+     * @return NeedletailResult
+     */
+    public function createSynonym($synonyms, string $original = null)
+    {
+        if ( ! is_array($synonyms) ) {
+            $synonyms = [$synonyms];
+        }
+
+        $this->params = [
+            'original' => $original,
+            'synonyms' => $synonyms
+        ];
+
+        return Query::execute('synonyms', $this, $this->write_key, 'post');
+    }
+
+    /**
+     * Update a synonym
+     *
+     * @param  string $id
+     * @param  array|string $synonyms
+     * @param  string|null $original
+     * @return NeedletailResult
+     */
+    public function updateSynonym($id, $synonyms, string $original = null)
+    {
+        $url = 'synonyms/' . $id;
+
+        $this->deleteSynonym($id);
+
+        return $this->createSynonym($original, $synonyms);
+    }
+
+    /**
+     * Delete a synonym
+     *
+     * @param  $id
+     * @return NeedletailResult
+     */
+    public function deleteSynonym($id)
+    {
+        $url = 'synonyms/' . $id;
+
+        return Query::execute($url, $this, $this->write_key, 'delete');
+    }
+
+    /**
      * Determines whether the buckets exists or not.
      *
      * @return bool
