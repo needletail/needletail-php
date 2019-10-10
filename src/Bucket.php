@@ -219,9 +219,7 @@ class Bucket
      */
     public function deleteSynonym($id)
     {
-        $url = 'synonyms/' . $id;
-
-        return Query::execute($url, $this, $this->write_key, 'delete');
+        return Query::execute("synonyms/{$id}", $this, $this->write_key, 'delete');
     }
 
     /**
