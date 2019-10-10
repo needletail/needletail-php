@@ -206,8 +206,6 @@ class Bucket
      */
     public function updateSynonym($id, $synonyms, string $original = null)
     {
-        $url = 'synonyms/' . $id;
-
         $this->deleteSynonym($id);
 
         return $this->createSynonym($original, $synonyms);
