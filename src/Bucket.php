@@ -186,9 +186,12 @@ class Bucket
         }
 
         $this->params = [
-            'original' => $original,
             'synonyms' => $synonyms
         ];
+
+        if ($original !== null) {
+            $this->params['original'] = $original;
+        }
 
         return Query::execute('synonyms', $this, $this->write_key, 'post');
     }
