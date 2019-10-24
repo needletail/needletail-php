@@ -208,7 +208,7 @@ class Bucket
     {
         $this->deleteSynonym($id);
 
-        return $this->createSynonym($original, $synonyms);
+        return $this->createSynonym($synonyms, $original);
     }
 
     /**
