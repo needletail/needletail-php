@@ -136,11 +136,11 @@ class Bucket
     /**
      * Update an already existing document in the specified bucket.
      *
-     * @param  string $document_id
+     * @param  mixed $document_id
      * @param  array $document
      * @return NeedletailResult
      */
-    public function updateDocument(string $document_id, array $document)
+    public function updateDocument($document_id, array $document)
     {
         $this->params = $document;
 
@@ -152,10 +152,10 @@ class Bucket
     /**
      * Delete a document by its identifier.
      *
-     * @param  string $document_id
+     * @param  mixed $document_id
      * @return NeedletailResult
      */
-    public function deleteDocument(string $document_id)
+    public function deleteDocument($document_id)
     {
         return Query::execute('documents/delete', $this, $this->write_key, 'delete', [
             'x-needletail-document-id' => $document_id
