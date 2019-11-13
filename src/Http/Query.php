@@ -2,8 +2,8 @@
 
 namespace Needletail\Http;
 
-use Needletail\Bucket;
 use GuzzleHttp\Client;
+use Needletail\Bucket;
 use Needletail\NeedletailResult;
 use GuzzleHttp\Exception\ClientException;
 
@@ -26,7 +26,11 @@ class Query
         ]);
 
         return static::raw(
-            $path, $method, $api_key, $bucket->getParams(), $headers
+            $path,
+            $method,
+            $api_key,
+            $bucket->getParams(),
+            $headers
         );
     }
 
@@ -42,7 +46,7 @@ class Query
      */
     public static function raw(string $path, string $method, ?string $api_key, array $data = [], array $headers = [])
     {
-        $client = new Client(['base_uri' => 'https://api.staging.needletail.io/2.0/']);
+        $client = new Client(['base_uri' => 'https://api.staging.needletail.io/2.1/']);
 
         $predefined_headers = [
             'x-needletail-api-key' => $api_key

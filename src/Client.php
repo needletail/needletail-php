@@ -88,4 +88,56 @@ class Client
 
         return Query::raw('batch', 'post', null, $batch);
     }
+
+    /**
+     * Fetch the 'daily operations' metric.
+     *
+     * @return NeedletailResult
+     */
+    public function getDailyOperations()
+    {
+        return Query::raw('analytics/daily-operations', 'get', $this->read_key);
+    }
+
+    /**
+     * Fetch the 'popular searches' metric.
+     *
+     * @return NeedletailResult
+     */
+    public function getPopularSearches()
+    {
+        return Query::raw('analytics/popular-searches', 'get', $this->read_key);
+    }
+
+    /**
+     * Fetch the 'no result queries' metric.
+     *
+     * @return NeedletailResult
+     */
+    public function getNoResultQueries()
+    {
+        return Query::raw('analytics/no-result-queries', 'get', $this->read_key);
+    }
+
+    /**
+     *
+     * Fetch the 'used aggregation attributes' metric.
+     *
+     * @return NeedletailResult
+     */
+    public function getUsedAggregationAttributes()
+    {
+        return Query::raw('analytics/used-aggregation-attributes', 'get', $this->read_key);
+    }
+
+    /**
+     *
+     * Fetch the 'used aggregation values' metric.
+     *
+     * @return NeedletailResult
+     */
+    public function getUsedAggregationValues()
+    {
+        return Query::raw('analytics/used-aggregation-values', 'get', $this->read_key);
+    }
 }

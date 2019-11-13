@@ -173,7 +173,7 @@ class Bucket
     }
 
     /**
-     * Create a synonym
+     * Create a synonym.
      *
      * @param  array|string $synonyms
      * @param  string|null $original
@@ -181,7 +181,7 @@ class Bucket
      */
     public function createSynonym($synonyms, string $original = null)
     {
-        if ( ! is_array($synonyms) ) {
+        if (!is_array($synonyms)) {
             $synonyms = [$synonyms];
         }
 
@@ -197,7 +197,18 @@ class Bucket
     }
 
     /**
-     * Update a synonym
+     * Get a synonym by its id.
+     *
+     * @param  string $id
+     * @return NeedletailResult
+     */
+    public function getSynonym($id)
+    {
+        return Query::execute("synonyms/{$id}", $this, $this->read_key, 'get');
+    }
+
+    /**
+     * Update a synonym by its id.
      *
      * @param  string $id
      * @param  array|string $synonyms
@@ -212,7 +223,7 @@ class Bucket
     }
 
     /**
-     * Delete a synonym
+     * Delete a synonym by its id.
      *
      * @param  $id
      * @return NeedletailResult
