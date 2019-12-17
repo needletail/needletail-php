@@ -1,7 +1,7 @@
 {
     "name": "needletail/needletail-php",
     "description": "A PHP interface for Needletail.",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "keywords": [
         "needletail",
         "php"
