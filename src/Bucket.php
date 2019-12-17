@@ -217,9 +217,19 @@ class Bucket
      */
     public function updateSynonym($id, $synonyms, string $original = null)
     {
-        $this->deleteSynonym($id);
+        if (!is_array($synonyms)) {
+            $synonyms = [$synonyms];
+        }
 
-        return $this->createSynonym($synonyms, $original);
+        $this->params = [
+            'synonyms' => $synonyms
+        ];
+
+        if ($original !== null) {
+            $this->params['original'] = $original;
+        }
+
+        return Query::execute("synonyms/{$id}", $this, $this->write_key, 'put');
     }
 
     /**
