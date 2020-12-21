@@ -33,7 +33,7 @@ class Bucket extends BaseEntity
 
     private ?array $attributes = [];
 
-    private ?object $boosts;
+    private ?object $boosts = null;
 
     /**
      * @return Alternatives
