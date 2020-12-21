@@ -277,11 +277,15 @@ class Bucket extends BaseEntity
     }
 
     /**
-     * @param  int  $document_count
+     * @param  ?int  $document_count
      * @return Bucket
      */
-    public function setDocumentCount(int $document_count): Bucket
+    public function setDocumentCount(?int $document_count): Bucket
     {
+        if (\is_null($document_count)) {
+            $document_count = 0;
+        }
+        
         $this->document_count = $document_count;
         return $this;
     }
