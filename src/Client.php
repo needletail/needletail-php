@@ -2,142 +2,93 @@
 
 namespace Needletail;
 
-use Needletail\Http\Query;
+use GuzzleHttp\Exception\GuzzleException;
+use Needletail\Endpoints\Buckets;
+use Needletail\Endpoints\Search;
+use Needletail\Entities\Bucket;
+use Needletail\Helpers\ClientDocuments;
+use Needletail\Helpers\DeprecationHelper;
 
 class Client
 {
-    /**
-     * An API key associated with all the read functionalities.
-     *
-     * @var string
-     */
-    private $read_key;
 
     /**
-     * An API key associated with all the write functionalities.
-     *
      * @var string
      */
-    private $write_key;
+    private string $apiKey;
 
     /**
-     * Create a new Needletail client.
+     * Client constructor.
      *
-     * @param  string $read_key
-     * @param  string $write_key
-     * @return void
+     * @param  string  $apiKey
      */
-    public function __construct(string $read_key, string $write_key)
+    public function __construct(string $apiKey)
     {
-        $this->read_key = $read_key;
-
-        $this->write_key = $write_key;
+        $this->apiKey = $apiKey;
     }
 
     /**
-     * Initialize a new bucket. If the given bucket does not exist, the bucket will be automatically created.
-     *
-     * @param  string $bucket
-     * @return Bucket
+     * @param  array  $params
+     * @return object
+     * @throws Exceptions\NeedletailException
+     * @throws GuzzleException
+     */
+    public function bulk(array $params)
+    {
+        $search = new Search($this->apiKey);
+        return $search->find($params);
+    }
+
+    /**
+     * @param  string  $bucket
+     * @return Entities\Bucket
+     * @throws Exceptions\NeedletailException
+     * @throws GuzzleException
      */
     public function initBucket(string $bucket)
     {
-        return new Bucket(
-            $bucket,
-            $this->read_key,
-            $this->write_key
-        );
+        DeprecationHelper::trigger(__METHOD__, 'buckets()->create($bucket)');
+        return $this->buckets()->create($bucket);
     }
 
     /**
-     * List all buckets available to the given key.
-     *
-     * @return NeedletailResult
+     * @return Buckets
      */
-    public function list()
+    public function buckets()
     {
-        return Query::raw('buckets', 'get', $this->read_key);
+        return new Buckets($this->apiKey);
+    }
+
+    public function documents()
+    {
+        return new ClientDocuments($this->apiKey);
+    }
+
+    public function synonyms($bucketName)
+    {
+        $bucket = new Bucket();
+        return $bucket->setApiKey($this->apiKey)
+            ->setName($bucketName)
+            ->synonyms();
+    }
+
+    public function alternatives($bucketName)
+    {
+        $bucket = new Bucket();
+        return $bucket->setApiKey($this->apiKey)
+            ->setName($bucketName)
+            ->alternatives();
     }
 
     /**
-     * Generate a private key with the given parameters.
-     *
-     * @param  array $params
-     * @return NeedletailResult
+     * @param  array  $params
+     * @return object
+     * @throws Exceptions\NeedletailException
+     * @throws GuzzleException
      */
-    public function createPrivateKey(array $params)
+    public function search(array $params)
     {
-        return Query::raw('private', 'post', $this->write_key, $params);
-    }
-
-    /**
-     * Perform a batch query on the Needletail API.
-     *
-     * @param  array $params
-     * @return NeedletailResult
-     */
-    public function batch(array $params)
-    {
-        $batch = [
-            'read_key' => $this->read_key,
-            'write_key' => $this->write_key,
-            'requests' => [
-                $params
-            ]
-        ];
-
-        return Query::raw('batch', 'post', null, $batch);
-    }
-
-    /**
-     * Fetch the 'daily operations' metric.
-     *
-     * @return NeedletailResult
-     */
-    public function getDailyOperations()
-    {
-        return Query::raw('analytics/daily-operations', 'get', $this->read_key);
-    }
-
-    /**
-     * Fetch the 'popular searches' metric.
-     *
-     * @return NeedletailResult
-     */
-    public function getPopularSearches()
-    {
-        return Query::raw('analytics/popular-searches', 'get', $this->read_key);
-    }
-
-    /**
-     * Fetch the 'no result queries' metric.
-     *
-     * @return NeedletailResult
-     */
-    public function getNoResultQueries()
-    {
-        return Query::raw('analytics/no-result-queries', 'get', $this->read_key);
-    }
-
-    /**
-     *
-     * Fetch the 'used aggregation attributes' metric.
-     *
-     * @return NeedletailResult
-     */
-    public function getUsedAggregationAttributes()
-    {
-        return Query::raw('analytics/used-aggregation-attributes', 'get', $this->read_key);
-    }
-
-    /**
-     *
-     * Fetch the 'used aggregation values' metric.
-     *
-     * @return NeedletailResult
-     */
-    public function getUsedAggregationValues()
-    {
-        return Query::raw('analytics/used-aggregation-values', 'get', $this->read_key);
+        $search = new Search($this->apiKey);
+        return $search->find($params);
     }
 }
