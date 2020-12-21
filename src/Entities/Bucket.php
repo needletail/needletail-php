@@ -261,7 +261,7 @@ class Bucket extends BaseEntity
     /**
      * @return object
      */
-    public function getBoosts(): object
+    public function getBoosts(): ?object
     {
         return $this->boosts;
     }
