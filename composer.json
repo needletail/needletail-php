@@ -2,7 +2,7 @@
     "name": "needletail/needletail-php",
     "description": "A PHP interface for Needletail.",
     "type": "project",
-    "version": "3.0.8",
+    "version": "3.0.9",
     "require": {
         "guzzlehttp/guzzle": "^6|^7",
         "ext-json": "*"

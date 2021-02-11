@@ -17,7 +17,7 @@ class Bucket extends BaseEntity
     /**
      * @var string|null
      */
-    private ?string $name;
+    private ?string $name = null;
     /**
      * @var bool
      */
@@ -35,9 +35,11 @@ class Bucket extends BaseEntity
 
     private ?object $boosts = null;
 
-    public function __constructor($name, $apiKey = null)
+    public function __constructor($name = null, $apiKey = null)
     {
-        $this->setName($name);
+        if (!\is_null($name)) {
+            $this->setName($name);
+        }
 
         if (!\is_null($apiKey)) {
             $this->setApiKey($apiKey);
