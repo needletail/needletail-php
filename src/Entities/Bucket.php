@@ -90,9 +90,9 @@ class Bucket extends BaseEntity
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }

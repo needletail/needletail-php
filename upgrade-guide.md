@@ -1,5 +1,5 @@
 Non-breaking changes
-- Client->initBucket is deprecated use Client->buckets->find instead
+- Client->initBucket is deprecated use Client->buckets->create instead
     > The name "initBucket" can imply a lot, it used to act like a "findOrCreate", for now it's being mapped to a find and the create method has been pulled loose.
 
 Breaking changes
