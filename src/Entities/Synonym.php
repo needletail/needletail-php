@@ -23,6 +23,17 @@ class Synonym extends BaseEntity
      */
     private array $words;
 
+    public function __construct($words = null, $apiKey = null)
+    {
+        if (!\is_null($words)) {
+            $this->setWords($words);
+        }
+
+        if (!\is_null($apiKey)) {
+            $this->setApiKey($apiKey);
+        }
+    }
+
     /**
      * @return Synonym
      * @throws GuzzleException

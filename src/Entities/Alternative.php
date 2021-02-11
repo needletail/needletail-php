@@ -27,6 +27,21 @@ class Alternative extends BaseEntity
      */
     private string $original_word;
 
+    public function __construct($original_word = null, $alternative_words = null, $apiKey = null)
+    {
+        if (!\is_null($original_word)) {
+            $this->setOriginalWord($original_word);
+        }
+
+        if (!\is_null($alternative_words)) {
+            $this->setAlternativeWords($alternative_words);
+        }
+
+        if (!\is_null($apiKey)) {
+            $this->setApiKey($apiKey);
+        }
+    }
+
     /**
      * @return Alternative
      * @throws GuzzleException

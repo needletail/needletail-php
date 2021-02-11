@@ -162,13 +162,14 @@ abstract class BaseEndpoint
     }
 
     /**
-     * @param  array  $data
-     * @param  array  $options
+     * @param  string|null  $id
+     * @param  array        $data
+     * @param  array        $options
      * @return ResponseInterface
      * @throws NeedletailException
      * @throws GuzzleException
      */
-    protected function post(string $id = null, array $data = [], array $options = []): ResponseInterface
+    protected function post(?string $id = null, array $data = [], array $options = []): ResponseInterface
     {
         $endpoint = $this->parseEndpoint($id);
 
