@@ -35,6 +35,15 @@ class Bucket extends BaseEntity
 
     private ?object $boosts = null;
 
+    public function __constructor($name, $apiKey = null)
+    {
+        $this->setName($name);
+
+        if (!\is_null($apiKey)) {
+            $this->setApiKey($apiKey);
+        }
+    }
+
     /**
      * @return Alternatives
      * @throws NeedletailException
