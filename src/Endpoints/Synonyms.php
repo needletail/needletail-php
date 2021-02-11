@@ -68,7 +68,7 @@ class Synonyms extends BaseEndpoint
      */
     public function create(Synonym $synonym): Synonym
     {
-        $response = $this->post($synonym->toArray());
+        $response = $this->post(null, $synonym->toArray());
         $data = $this->toObject($response);
 
         return $this->toEntity($data);

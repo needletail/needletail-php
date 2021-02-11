@@ -37,7 +37,7 @@ class BulkDocuments extends BaseEndpoint
      */
     public function create(array $documents): array
     {
-        $response = $this->post($documents);
+        $response = $this->post(null, $documents);
         $data = $this->toObject($response)->data;
 
         $createdDocuments = [];

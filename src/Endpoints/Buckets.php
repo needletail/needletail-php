@@ -54,7 +54,7 @@ class Buckets extends BaseEndpoint
      */
     public function create(Bucket $bucket): Bucket
     {
-        $response = $this->post($bucket->toArray());
+        $response = $this->post(null, $bucket->toArray());
         $data = $this->toObject($response);
 
         return $this->toEntity($data);

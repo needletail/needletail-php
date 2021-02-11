@@ -69,7 +69,7 @@ class Alternatives extends BaseEndpoint
      */
     public function create(Alternative $alternative): Alternative
     {
-        $response = $this->post($alternative->toArray());
+        $response = $this->post(null, $alternative->toArray());
         $data = $this->toObject($response);
 
         return $this->toEntity($data);

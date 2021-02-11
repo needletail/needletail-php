@@ -37,7 +37,7 @@ class Documents extends BaseEndpoint
      */
     public function create(array $document): Document
     {
-        $response = $this->post($document);
+        $response = $this->post(null, $document);
         $data = $this->toObject($response);
 
         return $this->toEntity($data);

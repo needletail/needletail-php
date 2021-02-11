@@ -19,6 +19,7 @@ class Search extends BaseEndpoint
     {
         $response = $this->post(
             null,
+            null,
             [
                 'json' => $params,
             ]

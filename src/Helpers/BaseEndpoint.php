@@ -168,9 +168,9 @@ abstract class BaseEndpoint
      * @throws NeedletailException
      * @throws GuzzleException
      */
-    protected function post(array $data = [], array $options = []): ResponseInterface
+    protected function post(string $id = null, array $data = [], array $options = []): ResponseInterface
     {
-        $endpoint = $this->getEndpoint();
+        $endpoint = $this->parseEndpoint($id);
 
         try {
             $response = $this->client->post(
