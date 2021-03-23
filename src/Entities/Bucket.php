@@ -7,6 +7,7 @@ use Needletail\Endpoints\Alternatives;
 use Needletail\Endpoints\Buckets;
 use Needletail\Endpoints\BulkDocuments;
 use Needletail\Endpoints\Documents;
+use Needletail\Endpoints\Mapping;
 use Needletail\Endpoints\Synonyms;
 use Needletail\Exceptions\NeedletailException;
 use Needletail\Helpers\BaseEntity;
@@ -137,6 +138,19 @@ class Bucket extends BaseEntity
     public function isShowScore(): bool
     {
         return $this->show_score;
+    }
+
+    /**
+     * @return Mapping
+     * @throws NeedletailException
+     */
+    public function mapping(): Mapping
+    {
+        if (empty($this->apiKey)) {
+            throw new NeedletailException('No API key is set.');
+        }
+
+        return new Mapping($this->apiKey, $this);
     }
 
     /**
