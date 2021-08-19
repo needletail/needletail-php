@@ -29,8 +29,8 @@ class Mapping extends BaseEndpoint
     }
 
     /**
-     * @param  array   $mapping
-     * @param  boolean $ignoreErrors
+     * @param  array  $mapping
+     * @param  boolean  $ignoreErrors
      * @return object
      * @throws GuzzleException
      * @throws NeedletailException
@@ -38,8 +38,8 @@ class Mapping extends BaseEndpoint
     public function create(array $mapping, $ignoreErrors = false): object
     {
         $response = $this->post(null, [
-            'mapping' => $mapping,
-            'ignore_errors' => $ignoreErrors
+            'mapping'       => $mapping,
+            'ignore_errors' => $ignoreErrors,
         ]);
 
         return $this->toObject($response);

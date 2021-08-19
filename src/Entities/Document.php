@@ -14,10 +14,12 @@ class Document extends BaseEntity
      * @var Bucket
      */
     private Bucket $bucket;
+
     /**
      * @var array
      */
     private array $data;
+
     /**
      * @var string
      */

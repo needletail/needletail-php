@@ -14,20 +14,20 @@ class ClientDocuments
         $this->apiKey = $apiKey;
     }
 
-    public function single(string $bucketName)
-    {
-        $bucket = new Bucket();
-        return $bucket->setApiKey($this->apiKey)
-            ->setName($bucketName)
-            ->documents();
-    }
-
     public function bulk(string $bucketName)
     {
         $bucket = new Bucket();
         return $bucket->setApiKey($this->apiKey)
             ->setName($bucketName)
             ->bulkDocuments();
+    }
+
+    public function single(string $bucketName)
+    {
+        $bucket = new Bucket();
+        return $bucket->setApiKey($this->apiKey)
+            ->setName($bucketName)
+            ->documents();
     }
 
 }

@@ -8,7 +8,7 @@ class ConfigHelper
     /**
      * @var array
      */
-    private static $config = [];
+    private static array $config = [];
 
     /**
      * @param  string  $key
