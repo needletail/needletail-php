@@ -8,41 +8,45 @@ use Needletail\Endpoints\Buckets;
 use Needletail\Endpoints\BulkDocuments;
 use Needletail\Endpoints\Documents;
 use Needletail\Endpoints\Mapping;
+use Needletail\Endpoints\Statistics;
 use Needletail\Endpoints\Synonyms;
 use Needletail\Exceptions\NeedletailException;
 use Needletail\Helpers\BaseEntity;
 
+use function is_null;
+
 class Bucket extends BaseEntity
 {
-
-    /**
-     * @var string|null
-     */
-    private ?string $name = null;
-    /**
-     * @var bool
-     */
-    private bool $show_score = false;
-
-    private int $document_count = 0;
-
-    private ?array $searchable_attributes = null;
-
-    private ?array $retrievable_attributes = null;
-
-    private ?string $group_by = null;
 
     private ?array $attributes = [];
 
     private ?object $boosts = null;
 
+    private int $document_count = 0;
+
+    private ?string $group_by = null;
+
+    /**
+     * @var string|null
+     */
+    private ?string $name = null;
+
+    private ?array $retrievable_attributes = null;
+
+    private ?array $searchable_attributes = null;
+
+    /**
+     * @var bool
+     */
+    private bool $show_score = false;
+
     public function __construct($name = null, $apiKey = null)
     {
-        if (!\is_null($name)) {
+        if (!is_null($name)) {
             $this->setName($name);
         }
 
-        if (!\is_null($apiKey)) {
+        if (!is_null($apiKey)) {
             $this->setApiKey($apiKey);
         }
     }
@@ -133,14 +137,6 @@ class Bucket extends BaseEntity
     }
 
     /**
-     * @return bool
-     */
-    public function isShowScore(): bool
-    {
-        return $this->show_score;
-    }
-
-    /**
      * @return Mapping
      * @throws NeedletailException
      */
@@ -154,13 +150,11 @@ class Bucket extends BaseEntity
     }
 
     /**
-     * @param  bool  $showScore
-     * @return Bucket
+     * @return Statistics
      */
-    public function setShowScore(bool $showScore): Bucket
+    public function statistics(): Statistics
     {
-        $this->show_score = $showScore;
-        return $this;
+        return new Statistics($this->apiKey, $this);
     }
 
     /**
@@ -182,35 +176,33 @@ class Bucket extends BaseEntity
     public function toArray(): array
     {
         return [
-            'name'       => $this->getName(),
-            'show_score' => $this->isShowScore(),
-            'document_count' => $this->getDocumentCount(),
-            'searchable_attributes' => $this->getSearchableAttributes(),
+            'name'                   => $this->getName(),
+            'show_score'             => $this->isShowScore(),
+            'document_count'         => $this->getDocumentCount(),
+            'searchable_attributes'  => $this->getSearchableAttributes(),
             'retrievable_attributes' => $this->getRetrievableAttributes(),
-            'group_by' => $this->getGroupBy(),
-            'attributes' => $this->getAttributes(),
-            'boosts' => $this->getBoosts(),
+            'group_by'               => $this->getGroupBy(),
+            'attributes'             => $this->getAttributes(),
+            'boosts'                 => $this->getBoosts(),
         ];
     }
 
     /**
-     * @return string
-     * @throws GuzzleException
-     * @throws NeedletailException
+     * @return bool
      */
-    public function truncate(): string
+    public function isShowScore(): bool
     {
-        return $this->endpoint()->truncate($this->getName());
+        return $this->show_score;
     }
 
     /**
+     * @param  bool  $showScore
      * @return Bucket
-     * @throws GuzzleException
-     * @throws NeedletailException
      */
-    public function update(): Bucket
+    public function setShowScore(bool $showScore): Bucket
     {
-        return $this->endpoint()->update($this);
+        $this->show_score = $showScore;
+        return $this;
     }
 
     /**
@@ -222,11 +214,17 @@ class Bucket extends BaseEntity
     }
 
     /**
-     * @return array
+     * @param  ?int  $document_count
+     * @return Bucket
      */
-    public function getAttributes(): array
+    public function setDocumentCount(?int $document_count): Bucket
     {
-        return $this->attributes;
+        if (is_null($document_count)) {
+            $document_count = 0;
+        }
+
+        $this->document_count = $document_count;
+        return $this;
     }
 
     /**
@@ -284,6 +282,24 @@ class Bucket extends BaseEntity
     }
 
     /**
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param  null|array  $attributes
+     * @return Bucket
+     */
+    public function setAttributes(?array $attributes): Bucket
+    {
+        $this->attributes = $attributes;
+        return $this;
+    }
+
+    /**
      * @return object
      */
     public function getBoosts(): ?object
@@ -302,26 +318,22 @@ class Bucket extends BaseEntity
     }
 
     /**
-     * @param  ?int  $document_count
-     * @return Bucket
+     * @return string
+     * @throws GuzzleException
+     * @throws NeedletailException
      */
-    public function setDocumentCount(?int $document_count): Bucket
+    public function truncate(): string
     {
-        if (\is_null($document_count)) {
-            $document_count = 0;
-        }
-        
-        $this->document_count = $document_count;
-        return $this;
+        return $this->endpoint()->truncate($this->getName());
     }
 
     /**
-     * @param  null|array  $attributes
      * @return Bucket
+     * @throws GuzzleException
+     * @throws NeedletailException
      */
-    public function setAttributes(?array $attributes): Bucket
+    public function update(): Bucket
     {
-        $this->attributes = $attributes;
-        return $this;
+        return $this->endpoint()->update($this);
     }
 }

@@ -7,6 +7,8 @@ use Needletail\Endpoints\Alternatives;
 use Needletail\Exceptions\NeedletailException;
 use Needletail\Helpers\BaseEntity;
 
+use function is_null;
+
 class Alternative extends BaseEntity
 {
 
@@ -14,14 +16,17 @@ class Alternative extends BaseEntity
      * @var array
      */
     private array $alternative_words;
+
     /**
      * @var Bucket
      */
     private Bucket $bucket;
+
     /**
      * @var string
      */
     private string $id;
+
     /**
      * @var string
      */
@@ -29,15 +34,15 @@ class Alternative extends BaseEntity
 
     public function __construct($original_word = null, $alternative_words = null, $apiKey = null)
     {
-        if (!\is_null($original_word)) {
+        if (!is_null($original_word)) {
             $this->setOriginalWord($original_word);
         }
 
-        if (!\is_null($alternative_words)) {
+        if (!is_null($alternative_words)) {
             $this->setAlternativeWords($alternative_words);
         }
 
-        if (!\is_null($apiKey)) {
+        if (!is_null($apiKey)) {
             $this->setApiKey($apiKey);
         }
     }

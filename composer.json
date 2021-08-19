@@ -1,22 +1,22 @@
 {
-    "name": "needletail/needletail-php",
-    "description": "A PHP interface for Needletail.",
-    "type": "project",
-    "version": "3.0.12",
-    "require": {
-        "guzzlehttp/guzzle": "^6|^7",
-        "ext-json": "*"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Creativeorange",
-            "email": "info@creativeorange.nl"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Needletail\\": "src/"
-        }
+  "name": "needletail/needletail-php",
+  "description": "A PHP interface for Needletail.",
+  "type": "project",
+  "version": "3.0.13",
+  "require": {
+    "guzzlehttp/guzzle": "^6|^7",
+    "ext-json": "*"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Creativeorange",
+      "email": "info@creativeorange.nl"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Needletail\\": "src/"
+    }
+  }
 }

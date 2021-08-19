@@ -7,6 +7,8 @@ use Needletail\Endpoints\Synonyms;
 use Needletail\Exceptions\NeedletailException;
 use Needletail\Helpers\BaseEntity;
 
+use function is_null;
+
 class Synonym extends BaseEntity
 {
 
@@ -14,10 +16,12 @@ class Synonym extends BaseEntity
      * @var Bucket
      */
     private Bucket $bucket;
+
     /**
      * @var string
      */
     private string $id;
+
     /**
      * @var array
      */
@@ -25,11 +29,11 @@ class Synonym extends BaseEntity
 
     public function __construct($words = null, $apiKey = null)
     {
-        if (!\is_null($words)) {
+        if (!is_null($words)) {
             $this->setWords($words);
         }
 
-        if (!\is_null($apiKey)) {
+        if (!is_null($apiKey)) {
             $this->setApiKey($apiKey);
         }
     }

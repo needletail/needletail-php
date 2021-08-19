@@ -71,7 +71,7 @@ class Documents extends BaseEndpoint
 
     /**
      * @param  string  $id
-     * @param  array   $document
+     * @param  array  $document
      * @return Document
      * @throws GuzzleException
      * @throws NeedletailException

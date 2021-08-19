@@ -18,6 +18,7 @@ abstract class BaseEndpoint
      * @var string
      */
     protected string $apiKey;
+
     /**
      * @var Client
      */
@@ -38,14 +39,14 @@ abstract class BaseEndpoint
                 'http_errors' => false,
                 // Guzzle 6
                 'exception'   => false,
-                'verify' => false,
+                'verify'      => false,
             ]
         );
     }
 
     /**
      * @param  string|null  $id
-     * @param  array        $options
+     * @param  array  $options
      * @return ResponseInterface
      * @throws NeedletailException
      * @throws GuzzleException
@@ -91,10 +92,12 @@ abstract class BaseEndpoint
      */
     private function buildHeaders(array $options = []): array
     {
-        return array_merge(
-            [
-                'x-needletail-api-key' => $this->apiKey,
-            ],
+        $base = [];
+        if (!empty($this->apiKey)) {
+            $base['x-needletail-api-key'] = $this->apiKey;
+        }
+
+        return array_merge($base,
             ($options['headers']) ?? []
         );
     }
@@ -106,13 +109,13 @@ abstract class BaseEndpoint
      */
     private function handleResponse(ResponseInterface $response): ResponseInterface
     {
-        if ($this->successful((int)$response->getStatusCode())) {
+        if ($this->successful($response->getStatusCode())) {
             return $response;
         }
 
         $body = $this->toObject($response);
         throw new NeedletailException(
-            "{$response->getStatusCode()}: {$response->getReasonPhrase()} ".((!empty($body->message)) ? "({$body->message})" : '')
+            "{$response->getStatusCode()}: {$response->getReasonPhrase()} ".((!empty($body->message)) ? "($body->message)" : '')
         );
     }
 
@@ -136,7 +139,7 @@ abstract class BaseEndpoint
 
     /**
      * @param  string|null  $id
-     * @param  array        $options
+     * @param  array  $options
      * @return ResponseInterface
      * @throws NeedletailException
      * @throws GuzzleException
@@ -163,8 +166,8 @@ abstract class BaseEndpoint
 
     /**
      * @param  string|null  $id
-     * @param  array        $data
-     * @param  array        $options
+     * @param  array  $data
+     * @param  array  $options
      * @return ResponseInterface
      * @throws NeedletailException
      * @throws GuzzleException
@@ -191,8 +194,8 @@ abstract class BaseEndpoint
 
     /**
      * @param  string|null  $id
-     * @param  array        $data
-     * @param  array        $options
+     * @param  array  $data
+     * @param  array  $options
      * @return ResponseInterface
      * @throws NeedletailException
      * @throws GuzzleException
