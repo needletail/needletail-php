@@ -51,7 +51,7 @@ abstract class BaseEndpoint
      * @throws NeedletailException
      * @throws GuzzleException
      */
-    protected function delete(string $id = null, array $options = []): ResponseInterface
+    protected function delete(?string $id = null, ?array $options = []): ResponseInterface
     {
         $endpoint = $this->parseEndpoint($id);
 
@@ -90,7 +90,7 @@ abstract class BaseEndpoint
      * @param  array  $options
      * @return array
      */
-    private function buildHeaders(array $options = []): array
+    private function buildHeaders(?array $options = []): array
     {
         $base = [];
         if (!empty($this->apiKey)) {
@@ -144,7 +144,7 @@ abstract class BaseEndpoint
      * @throws NeedletailException
      * @throws GuzzleException
      */
-    protected function get(?string $id = null, array $options = []): ResponseInterface
+    protected function get(?string $id = null, ?array $options = []): ResponseInterface
     {
         $endpoint = $this->parseEndpoint($id);
 
@@ -172,7 +172,7 @@ abstract class BaseEndpoint
      * @throws NeedletailException
      * @throws GuzzleException
      */
-    protected function post(?string $id = null, array $data = [], array $options = []): ResponseInterface
+    protected function post(?string $id = null, ?array $data = [], ?array $options = []): ResponseInterface
     {
         $endpoint = $this->parseEndpoint($id);
 
@@ -200,7 +200,7 @@ abstract class BaseEndpoint
      * @throws NeedletailException
      * @throws GuzzleException
      */
-    protected function put(string $id = null, array $data = [], array $options = []): ResponseInterface
+    protected function put(?string $id = null, ?array $data = [], ?array $options = []): ResponseInterface
     {
         $endpoint = $this->parseEndpoint($id);
 
