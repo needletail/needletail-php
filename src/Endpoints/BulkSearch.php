@@ -25,7 +25,7 @@ class BulkSearch extends BaseEndpoint
             ]
         );
 
-        return $this->toObject($response)->data;
+        return $this->toObject($response);
     }
 
     /**
